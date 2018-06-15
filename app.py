@@ -31,8 +31,8 @@ def index():
 @app.route('/upload',methods=['post','get'])
 def upload_file():
     f = request.files['file']
-    f.save('./tmp/image.jpg')
-    preproc('./tmp/image.jpg')
+    f.save('./tmp/image.png')
+    preproc('./tmp/image.png')
     return(slot())
     return "as"
 
