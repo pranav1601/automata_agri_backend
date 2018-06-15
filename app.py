@@ -1,25 +1,11 @@
 from flask import Flask, jsonify, Response, request
 from preproc_beta import preproc
 from TT_SLOT import slot
+import string
+import random
 import os
 app = Flask(__name__)
-#
-#
-# a={'a':'b'}
-# @app.route('/',methods=['post','get'])
-# def index():
-#     # resp = Response('{\"a\":"b"}')
-#     # resp.headers['content-type'] = 'application/json'
-#     # # return ("{\"as\":\"fg\"}", 400)
-#     # # return jsonify(a)
-#     res=Response("Hey")
-#     res.set_cookie("name", value="I am cookie")
-#     # return jsonify({'form':request.form,'args':request.args,'cookie':request.cookies})
-#     return res
-#
-# app.run(port=3000)
 
-# proc('C:\\Users\\shubh\\Desktop\\Shubham-IT2.png')
 UPLOAD_FOLDER = './tmp/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -30,11 +16,17 @@ def index():
 
 @app.route('/upload',methods=['post','get'])
 def upload_file():
-    f = request.files['file']
-    f.save('./tmp/image.png')
-    preproc('./tmp/image.png')
-    return(slot())
-    return "as"
+    try:
+        name=''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+        f = request.files['file']
+        f.save('./tmp/'+name+'.png')
+        preproc('./tmp/'+name+'.png')
+        value=slot('./tmp/'+name+'.png')
+        os.remove('./tmp/'+name+'.png')
+        return jsonify(value)
+    except:
+        return jsonify({'err': 'Bad Request'})
+
 
 
 if __name__ == '__main__':

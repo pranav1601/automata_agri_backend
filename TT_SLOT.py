@@ -13,12 +13,14 @@ def updateNPCoord():
     else:
         cd = [cd[0]+1, 0]
 
-def slot():
+def slot(loc):
+    global cd
+    cd = [0,0]
     slot_state = np.zeros((14,13))
     final_list = []
 
     #file_name = input("Enter file path: ");
-    tt = Image.open("./tmp/ttpxt.png")
+    tt = Image.open(loc)
 
     dim = tt.size
 
@@ -83,7 +85,8 @@ def slot():
 
     except IndexError:
     	if cd[0] < 10 or cd[1] != 0:
-    		return("BAD FILE: Please upload a proper time table image.")
+            print(cd)
+            return({'err': "BAD FILE: Please upload a proper time table image."})
 
     ##in case of a correctly cropped image, empty rows need be added to the top
     ##of the table, before rotation
@@ -106,7 +109,7 @@ def slot():
             b = b + 1
         a = a + 2
 
-    os.remove("./tmp/ttpxt.png")
-    return json.dumps(final_list)
+    print(cd)
+    return {'slots': final_list}
     # x = input("\nGive any input to continue...")
     # exit()

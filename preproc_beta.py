@@ -16,12 +16,12 @@ def preproc(loc):
 			else:
 				out.putpixel((i,j), p)
 
-	out.save("./tmp/ttpxt.png")
+	out.save(loc)
 
 
 	#preprocessing 2
 
-	im = Image.open("./tmp/ttpxt.png")
+	im = Image.open(loc)
 
 	def dist(f, t):
 		return int((abs(f[0]-t[0])**2 + abs(f[1]-t[1])**2 + abs(f[2]-t[2]))**0.5)
@@ -37,11 +37,11 @@ def preproc(loc):
 				else:
 					out.putpixel((a,b), rgb)
 
-	out.save("./tmp/ttpxt.png")
+	out.save(loc)
 
 	#preprocessing 3 (monotonizing 2)
 
-	im = Image.open("./tmp/ttpxt.png")
+	im = Image.open(loc)
 	out = im
 
 	a,b=0,0
@@ -56,4 +56,4 @@ def preproc(loc):
 				else:
 					out.putpixel((a,b), (255,255,0))
 
-	out.rotate(180).save("./tmp/ttpxt.png")
+	out.rotate(180).save(loc)
