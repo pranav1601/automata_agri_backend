@@ -1,2 +1,5 @@
-Flask
+flask
+PyJWT
 gunicorn
+numpy
+pillow
