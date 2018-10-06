@@ -23,7 +23,7 @@ def latlng():
 
     yieldType=0 #0->low;1->normal;2->bumper
     if(yieldAmount>3000): yieldType=2
-    elif(yieldAmount>500): yieldType=1
+    elif(yieldAmount>300): yieldType=1
     return jsonify({'yield':yieldAmount, 'type': yieldType})
 # print(getCondition.exec(12.975358300000002,79.1604862))
 
