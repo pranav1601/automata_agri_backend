@@ -17,7 +17,7 @@ develop-eggs/
 dist/
 downloads/
 .vscode
-key.py
+local_keys.py
 eggs/
 .eggs/
 lib/
