@@ -4,7 +4,7 @@ import os
 
 def enprd(crop, rf):
 	if(rf==0): return 0
-	f = open(os.getcwd()+'\\prediction\\crop_data\\'+crop+'_data.txt', 'r').read().split("\n")
+	f = open(os.getcwd()+'/prediction/crop_data/'+crop+'_data.txt', 'r').read().split("\n")
 	y = f[0].split(",")
 	y = [float(q) for q in y]
 	n = len(f)
