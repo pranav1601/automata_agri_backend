@@ -1,9 +1,10 @@
-from matplotlib import pyplot as plt
-import sklearn.preprocessing as pp
-
+# from matplotlib import pyplot as plt
+# import sklearn.preprocessing as pp
+import os
 
 def enprd(crop, rf):
-	f = open('crop_data/'+crop+'_data.txt', 'r').read().split("\n")
+	if(rf==0): return 0
+	f = open(os.getcwd()+'\\prediction\\crop_data\\'+crop+'_data.txt', 'r').read().split("\n")
 	y = f[0].split(",")
 	y = [float(q) for q in y]
 	n = len(f)
@@ -29,6 +30,6 @@ def enprd(crop, rf):
 
 
 #----PROGRAM EXECUTION STARTS HERE-------
-inp = input().strip().split(",")
-#il = [float(inp[i]) for i in range(1,len(inp))]
-print(enprd(inp[0],float(inp[1])))
+# inp = input().strip().split(",")
+# #il = [float(inp[i]) for i in range(1,len(inp))]
+# print(enprd(inp[0],float(inp[1])))

@@ -5,12 +5,15 @@ import keys
 def exec(lat,lng):
     try:
         url='http://api.apixu.com/v1/forecast.json?key='+keys.keys.accuKey+'&q='+str(lat)+','+str(lng)+'&days=10'
+        print(url)
         locDetais=json.loads(requests.get(url).text)
-        print(locDetais)
         prep=0
+        k=0
         for i in locDetais["forecast"]["forecastday"]:
             prep=prep+(i["day"]["totalprecip_mm"])
-        return prep
+            k=k+1
+        print(prep,k)
+        return (prep/k)*30
     except:
         return 0
 
