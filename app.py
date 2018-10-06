@@ -21,6 +21,17 @@ def latlng():
     return jsonify(devfest_0.enprd(crop,getCondition.exec(float(lat),float(lng))))
 # print(getCondition.exec(12.975358300000002,79.1604862))
 
+
+
+@app.after_request
+def setcores(response):
+    response.headers['Access-Control-Allow-Origin']='*'
+    # response.headers['Access-Control-Allow-Headers']='Content-Type'
+    response.headers["Access-Control-Allow-Headers"]= "authorization, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+    response.headers['Access-Control-Allow-Methods']='GET, PUT, POST, DELETE, PATCH, OPTIONS'
+    response.headers["Access-Control-Allow-Credentials"]= "true"
+    return response
+    
 debug=False
 if('HEROKU' not in os.environ):
     debug=True
