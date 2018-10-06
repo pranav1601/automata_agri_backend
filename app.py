@@ -18,7 +18,13 @@ def latlng():
     crop=request.args.get('crop')
     if(crop not in ['rice','bajra','maize']): return ''
     if(not float(lat) or not float(lng)): return ''
-    return jsonify(devfest_0.enprd(crop,getCondition.exec(float(lat),float(lng))))
+
+    yieldAmount=devfest_0.enprd(crop,getCondition.exec(float(lat),float(lng)))
+
+    yieldType=0 #0->low;1->normal;2->bumper
+    if(yieldAmount>3000): yieldType=2
+    elif(yieldAmount>500): yieldType=1
+    return jsonify({'yield':yieldAmount, 'type': yieldType})
 # print(getCondition.exec(12.975358300000002,79.1604862))
 
 
