@@ -5,6 +5,8 @@ import numpy as np
 import os
 
 def predict(crop,rf,tm):
+	if(rf==0): return 0
+	if(tm==0): return 0
 	features = pd.read_csv(os.getcwd()+'/prediction/crop_data/'+crop+'.csv')
 	features = pd.get_dummies(features)
 	labels = np.array(features['YIELD'])
