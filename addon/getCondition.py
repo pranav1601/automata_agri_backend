@@ -8,12 +8,15 @@ def exec(lat,lng):
         print(url)
         locDetais=json.loads(requests.get(url).text)
         prep=0
+        tmp=0
         k=0
         for i in locDetais["forecast"]["forecastday"]:
             prep=prep+(i["day"]["totalprecip_mm"])
+            tmp=tmp+(i["day"]["avgtemp_c"])
+            print(i["day"]["avgtemp_c"],tmp)
             k=k+1
         print(prep,k)
-        return (prep/k)*30
+        return [(prep/k)*30,(tmp/k)]
     except:
         return 0
 

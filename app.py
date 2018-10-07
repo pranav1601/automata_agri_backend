@@ -21,7 +21,9 @@ def latlng():
     crop=request.args.get('crop')
     if(crop not in ['rice','bajra','maize']): return ''
     if(not float(lat) or not float(lng)): return ''
-    yieldAmount=devfest_0.predict(crop,getCondition.exec(float(lat),float(lng)))
+    cond=getCondition.exec(float(lat),float(lng))
+    print(cond)
+    yieldAmount=devfest_0.predict(crop,cond[0],cond[1])
 
     yieldType=0 #0->low;1->normal;2->bumper
     if(yieldAmount>3000): yieldType=2
