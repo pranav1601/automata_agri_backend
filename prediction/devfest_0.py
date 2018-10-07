@@ -1,35 +1,33 @@
-# from matplotlib import pyplot as plt
-# import sklearn.preprocessing as pp
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+import numpy as np
 import os
 
-def enprd(crop, rf):
-	if(rf==0): return 0
-	f = open(os.getcwd()+'/prediction/crop_data/'+crop+'_data.txt', 'r').read().split("\n")
-	y = f[0].split(",")
-	y = [float(q) for q in y]
-	n = len(f)
-	xs = []
-	xs = f[1].split(",")
-	xs = [float(q) for q in xs]
+def predict(crop,rf):
+	# features = open(os.getcwd()+'/prediction/crop_data/'+crop+'.csv')
 
-	v = []
-	v.append(xs[0]/rf)
-	ind = 0
-	for i in range(1,len(xs)):
-		v.append(rf-xs[i])
-		if v[i] > v[ind]:
-			ind = i
+	features = pd.read_csv(os.getcwd()+'/prediction/crop_data/'+crop+'.csv')
+	features = pd.get_dummies(features)
+	labels = np.array(features['YIELD'])
+	features.drop('YIELD', axis=1)
+	feature_list = list(features.columns)
+	features = np.array(features)
 
-	'''print(v)
-	print(ind)
-	exit()'''
-	if rf >= min(xs) and rf <= max(xs):
-		return y[ind]
-	else:
-		return y[ind]*rf/xs[ind]
+	train_features, test_features, train_labels, test_labels = train_test_split(features,labels,test_size=0, random_state=42)
+	test_features = np.array([[0,4.9]])
+	rf = RandomForestRegressor(n_estimators=1000, random_state=42)
+
+	#training
+	rf.fit(train_features, train_labels)
+
+	#predicting
+	predictions = rf.predict(test_features)
+
+	return predictions[0]
 
 
-#----PROGRAM EXECUTION STARTS HERE-------
+
+# #-----CODE------
 # inp = input().strip().split(",")
-# #il = [float(inp[i]) for i in range(1,len(inp))]
-# print(enprd(inp[0],float(inp[1])))
+# print(predict(inp[0],float(inp[1])))

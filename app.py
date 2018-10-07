@@ -7,19 +7,21 @@ import getCondition
 import devfest_0
 app = Flask(__name__)
 
-@app.route('/',methods=['post','get'])
-# def index():
-#     return jsonify(getCondition.exec(12.975358300000002,79.1604862))
-
 # @app.route('/pos',methods=['post','get'])
+# def index():
+#     lat=request.args.get('lat')
+#     lng=request.args.get('lng')
+#     crop=request.args.get('crop')
+#     return jsonify(getCondition.exec(12.97535830000   0002,79.1604862))
+
+@app.route('/',methods=['post','get'])
 def latlng():
     lat=request.args.get('lat')
     lng=request.args.get('lng')
     crop=request.args.get('crop')
     if(crop not in ['rice','bajra','maize']): return ''
     if(not float(lat) or not float(lng)): return ''
-
-    yieldAmount=devfest_0.enprd(crop,getCondition.exec(float(lat),float(lng)))
+    yieldAmount=devfest_0.predict(crop,getCondition.exec(float(lat),float(lng)))
 
     yieldType=0 #0->low;1->normal;2->bumper
     if(yieldAmount>3000): yieldType=2
